@@ -1,17 +1,17 @@
 <!--
  * @Author: wyy
- * @Date: 2022-02-13 23:08:20
+ * @Date: 2022-09-10 00:44:15
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-09-10 00:28:22
+ * @LastEditTime: 2022-09-10 00:44:42
  * @LastEditors: wyy
  * @Description: 
- * @FilePath: /student_sys_vue/src/page/404.vue
+ * @FilePath: /student_sys_vue/src/page/500.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <template>
   <div class="error-page">
-    <div class="error-code">4<span>0</span>4</div>
-    <div class="error-desc">啊哦~ 你所访问的页面不存在</div>
+    <div class="error-code">5<span>0</span>0</div>
+    <div class="error-desc">啊哦~ 服务器错误</div>
     <div class="error-handle">
       <router-link to="/">
         <el-button type="primary" size="large">返回首页</el-button>

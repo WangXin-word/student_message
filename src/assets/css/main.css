@@ -30,7 +30,8 @@ a {
     padding-bottom: 30px;
     -webkit-transition: left .3s ease-in-out;
     transition: left .3s ease-in-out;
-    background: #f0f0f0;
+    min-width: 1000px;
+    /* background: #f0f0f0; */
 }
 
 .content {

@@ -2,14 +2,14 @@
  * @Author: 汪鑫
  * @Date: 2022-02-13 23:07:50
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-02-15 18:11:33
- * @LastEditors: 汪鑫
+ * @LastEditTime: 2022-09-13 00:07:27
+ * @LastEditors: wyy
  * @Description: 
- * @FilePath: /management/src/common/Home.vue
+ * @FilePath: /student_sys_vue/src/common/Home.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <template>
-    <div class="wrapper">
+    <div class="wrapper" style="min-width:1200px">
         <v-head></v-head>
         <v-sidebar></v-sidebar>
         <div class="content-box" :class="{'content-collapse':collapse}">

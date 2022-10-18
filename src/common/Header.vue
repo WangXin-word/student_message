@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">搬象后台管理系统</div>
+        <div class="logo">学生信息管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -15,7 +15,7 @@
                     </el-tooltip>
                 </div>
                 <!-- 消息中心 -->
-                <div class="btn-bell">
+                <!-- <div class="btn-bell">
                     <el-tooltip
                         effect="dark"
                         :content="message?`有${message}条未读消息`:`消息中心`"
@@ -26,7 +26,7 @@
                         </router-link>
                     </el-tooltip>
                     <span class="btn-bell-badge" v-if="message"></span>
-                </div>
+                </div> -->
                 <!-- 用户头像 -->
                 <div class="user-avator">
                     <img src="../img/img.jpg" />
@@ -71,16 +71,16 @@ export default {
     },
     computed: {
         username() {
-            let username = localStorage.getItem('ms_username');
-            return username ? username : this.name;
+            let username = JSON.parse(localStorage.getItem('userInfo'));
+            return username ? username.name : this.name;
         }
     },
     methods: {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
-                this.$router.push('/login');
+                localStorage.removeItem('token');
+                this.$router.push('/login')
             }else if(command == 'personalCenter'){
                 this.$router.push('/personalCenter')
             }

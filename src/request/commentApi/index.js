@@ -1,6 +1,17 @@
+/*
+ * @Author: wyy
+ * @Date: 2022-02-11 10:51:05
+ * @Annotate: 输入这页的内容
+ * @LastEditTime: 2022-09-30 14:56:06
+ * @LastEditors: wyy
+ * @Description: 
+ * @FilePath: /student_sys_vue/src/request/commentApi/index.js
+ * 可以输入预定的版权声明、个性签名、空行等
+ */
 import axios from 'axios'; // 引入axios
+import _this from '../../main'
 import QS from 'qs'; // 引入qs模块,用来序列化post类型的数据;
-
+import router from '../../router';
 // 创建axios实例
 const inserver = axios.create({
   headers: {
@@ -16,16 +27,12 @@ const inserver = axios.create({
  */
 inserver.interceptors.request.use(
   (config) => {
-    console.log(config);
-    
-    if (config.url == '/admin/auth/login') {
+    if (config.url == '/api/system/login') {
       return config
     }
     // 判断token是否有效
-    const token = Cookie.get('token')
-    config.headers.Authorization = token
-    config.headers.token = token
-    nprogress.start()
+    const token = localStorage.getItem("token");
+    config.headers.Authorization = "Beane"+token
     return config
   },
   (error) => {
@@ -38,9 +45,11 @@ inserver.interceptors.response.use(
   (response) => {
     // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
     // 否则的话抛出错误
-    console.log(response);
     if (response.status === 200) {
-      return Promise.resolve(response)
+      if(response.data instanceof Array === true){
+        return Promise.resolve(response.data);
+      }
+      return Promise.resolve(QS.parse(response.data))
     } else {
       return Promise.reject(response)
     }
@@ -51,43 +60,55 @@ inserver.interceptors.response.use(
   // 下面列举几个常见的操作，其他需求可自行扩展
   (error) => {
     if (error) {
-      console.log(error);
       // 这个函数一定不要忘记了
-      errorHandle(error.response.status)
+      errorHandle(error.status)
       return Promise.reject(error.response)
     }
   }
 )
 
+
 /**
  * 请求失败后的错误统一处理
  * @param {Number} status 请求失败的状态码
  */
-const errorHandle = (status) => {
+ const errorHandle = (status) => {
   // 状态码判断
-  // console.log(other)
   switch (status) {
     // 401: 未登录
     // 未登录则跳转登录页面，并携带当前页面的路径
     // 在登录成功后返回当前页面，这一步需要在登录页操作。 
     case 401:
-      
+      router.push({
+        path:"/login"
+      })
       break
-      // 403 token过期 清除token并跳转登录页
-    case 1004:
-      
+      //202 登录过期
+    case 202:
+      router.push({
+        path:"/token"
+      })
       break
-      // console.log('TOken异常，重新登录')
-    case 404:
-      alert("错误")
-      break
+      // 403 没有权限
+    case 403:
+      router.push({
+        path:"/403"
+      })
+      break;
       // 404请求不存在
     case 404:
+      router.push({
+        path:"/404"
+      })
+      break
+      // 服务报错
+    case 500:
+      router.push({
+        path:"/500"
+      })
+      
       break
     default:
-      // console.log('未找到该方法')
-      // Message.error(error.response.data.message)
-      // Message.error('未找到该方法！请稍后重试！')
   }
 }
 
