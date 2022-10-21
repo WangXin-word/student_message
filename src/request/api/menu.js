@@ -19,9 +19,10 @@ export const getMenuApi = () => {
     })
 }
 
-export const updateMenuApi = () => {
+export const updateMenuApi = (data) => {
     return inservice({
         url: '/api/menu/update',
         method: 'post',
+        data
     })
 }

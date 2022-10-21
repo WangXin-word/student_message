@@ -45,6 +45,8 @@ import { Table, TableColumn, Button } from "element-ui";
 import { mapState } from "vuex";
 import popupDialog from "../../common/popupDialog";
 import { getRoleApi } from "../../request/api/role";
+import { updateMenuApi } from "../../request/api/menu";
+
 export default {
   components: {
     elTable: Table,
@@ -56,7 +58,7 @@ export default {
     return {
       dialogVisible: false,
       formLabelAlign: {},
-      popupDialogTitle:""
+      popupDialogTitle:"",
     };
   },
   computed: {
@@ -74,6 +76,11 @@ export default {
         this.dialogVisible = true;
         this.formLabelAlign = {
           item: [
+            {
+              name:"ID",
+              inputContent:item.id,
+              disable:true
+            },
             {
               name: "页面名称",
               inputContent: item.meta.title,
@@ -100,8 +107,23 @@ export default {
     },
     //弹框点击确认
     updateList(item){
-        console.log(item);
+      console.log(item.item);
+        let postCont = {
+          id:item.item[0].inputContent,
+          name:item.item[1].inputContent,
+          meta:`{"title":"${item.item[3].inputContent}"}`,
+          sortMenu:item.item[4].inputContent
+        }
+        console.log(postCont);
+        updateMenuApi(postCont).then(res => {
+          console.log(res);
+          if(res.code == 200){
+            
+          }
+        })
     },
+
+    //关闭弹框
     closePopup() {
       this.dialogVisible = false;
     },

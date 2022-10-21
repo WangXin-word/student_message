@@ -28,7 +28,7 @@
           </span>
           <!-- 单选框 start -->
           <span v-if="!item.isSelectItem && !item.isSelect">
-            <el-input v-model="item.inputContent" autocomplete="off" :placeholder="item.placeholderContent"></el-input>
+            <el-input v-model="item.inputContent" autocomplete="off" :placeholder="item.placeholderContent" :disabled="item.disable"></el-input>
           </span>
           <!-- 单选框 end -->
 

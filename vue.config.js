@@ -16,6 +16,7 @@ module.exports = {
         open: true,
         /* 设置为0.0.0.0则所有的地址均能访问 */
         host: '0.0.0.0',
+        
         port: "8089",
         /* 使用代理 */
         proxy: {
@@ -27,5 +28,6 @@ module.exports = {
             changeOrigin: true,
           },
         },
+        disableHostCheck:true
     },
 }

@@ -47,7 +47,6 @@
 <script>
 import { Form, FormItem, Button, Input } from "element-ui";
 import { getLoginApi } from "../request/api/login.js";
-import { getMenuApi } from "../request/api/menu.js";
 import { asyncRouter } from "../router/index";
 export default {
   components: {
@@ -96,30 +95,25 @@ export default {
 
     //获取菜单
     menuList() {
-      getMenuApi().then((res) => {
+      this.$store.dispatch('doGetMenuList').then(res => {
         console.log(res);
         if (res && res != "[]") {
-          res.map((item, index, arr) => {
-            item.meta = JSON.parse(item.meta);
-            item.component = () => import(`./menu/${item.path}.vue`);
-          });
-           asyncRouter[1].children = res;
-           this.$router.addRoutes(asyncRouter);
-           this.$store.commit("changeMenu", res);
-           this.$router.push("/");
+          this.$router.push("/");
         }
-        // if (res.code == 200) {
-        //   res.data.map((item, index, arr) => {
-        //     item.meta = JSON.parse(item.meta);
-        //     item.component = () => import(`./menu/${item.path}.vue`);
-        //   });
-        //   asyncRouter[1].children = res.data;
-
-        //   this.$router.addRoutes(asyncRouter);
-        //   this.$store.commit("changeMenu", res.data);
-        //   this.$router.push("/");
-        // }
-      });
+      })
+      // getMenuApi().then((res) => {
+      //   console.log(res);
+      //   if (res && res != "[]") {
+      //     res.map((item, index, arr) => {
+      //       item.meta = JSON.parse(item.meta);
+      //       item.component = () => import(`./menu/${item.path}.vue`);
+      //     });
+      //      asyncRouter[1].children = res;
+      //      this.$router.addRoutes(asyncRouter);
+      //      this.$store.commit("changeMenu", res);
+      //      this.$router.push("/");
+      //   }
+      // });
     },
   },
 };
