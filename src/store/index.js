@@ -35,6 +35,17 @@ export default new Vuex.Store({
     doGetMenuList(commit) {
       return new Promise((resolve,reject) => {
         getMenuApi().then(res => {
+          console.log(res);
+          let Obj = {
+            path: "Dashboard",
+            name: "Dashboard",
+            meta: {
+                  "title": "系统首页"
+                },
+            icon: 'iconfont icon-xueshengguanli'  
+          }
+          Obj.meta = JSON.stringify(Obj.meta);
+          res.unshift(Obj)
           commit.commit("changeMenu",res)
           if (res && res != "[]") {
             res.map((item) => {

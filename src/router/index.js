@@ -85,7 +85,6 @@ VueRouter.prototype.push = function push(location) {
 //路由拦截器
 router.beforeEach((to, from, next) => {
   //tokn拦截器
-  const routerPassLogin = ["/login", "/status404", "/status500"];
   if(!localStorage.getItem("token") && to.path != "/login"){
     return next({
       path: "/login"

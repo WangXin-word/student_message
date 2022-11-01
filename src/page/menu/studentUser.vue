@@ -1,77 +1,59 @@
 <!--
  * @Author: wyy
- * @Date: 2022-09-05 22:23:27
+ * @Date: 2022-09-05 22:24:45
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-09-12 21:26:34
+ * @LastEditTime: 2022-09-11 20:12:45
  * @LastEditors: wyy
  * @Description: 
- * @FilePath: /student_sys_vue/src/page/menu/studentUser.vue
+ * @FilePath: /student_sys_vue/src/page/menu/grade.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <template>
   <div class="studentUser">
-    <div class="welcome">
-      <div class="welcome-top"><span>Welcomen</span> {{ username }} !</div>
-      <div style="color: #6c757d">Dashboard</div>
+    <div class="studentMessageHeader" style="padding: 10px">
+      <el-button type="primary" @click="add">添加</el-button>
     </div>
-    <div class="content">
-      <div class="content-data flexBox">
-        <div
-          v-for="(item, index) in 4"
-          :key="index"
-          class="content-data-item flex1"
-        >
-          wode
-        </div>
-      </div>
 
-      <div class="card flexBox justify-content-between mt20">
-        <div class="card-item">
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="date" label="日期" width="180">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址"> </el-table-column>
-          </el-table>
-        </div>
-        <div class="card-item">
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="date" label="日期" width="180">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="180">
-            </el-table-column>
-            <el-table-column prop="address" label="地址"> </el-table-column>
-          </el-table>
-        </div>
-      </div>
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column prop="date" label="日期" width="180"> </el-table-column>
+      <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+      <el-table-column prop="address" label="地址"> </el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="handleClick(scope.row)"
+            >编辑</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
 
-      <div class="credit-card flexBox justify-content-between">
-        <div
-          class="credit-card-item flex1"
-          v-for="(item, index) in 4"
-          :key="index"
-        >
-          wode
-        </div>
-      </div>
-    </div>
-    <div class="footer">
-      XXXX
-    </div>
+    <wyy-popupDialog
+      :dialogVisible="dialogVisible"
+      @closePopup="closePopup"
+      :formLabelAlign="formLabelAlign"
+      :title="popupDialogTitle"
+      @submit="updateList"
+    ></wyy-popupDialog>
+
   </div>
 </template>
 
 <script>
-import { Table, TableColumn } from "element-ui";
+import { Table, TableColumn, Button } from "element-ui";
+import popupDialog from "../../common/popupDialog";
+import { getStudentList } from "../../request/api/student";
 export default {
   components: {
     elTable: Table,
     elTableColumn: TableColumn,
+    elButton: Button,
+    wyyPopupDialog: popupDialog,
   },
   data() {
     return {
-      name: "请登录",
+      dialogVisible: false,
+      formLabelAlign: {},
+      popupDialogTitle:"",
       tableData: [
         {
           date: "2016-05-02",
@@ -96,58 +78,44 @@ export default {
       ],
     };
   },
-  computed: {
-    username() {
-      let username = JSON.parse(localStorage.getItem("userInfo"));
-      return username ? username.name : this.name;
+  created(){
+    getStudentList().then(res => {
+      console.log(res);
+    })
+  },
+  methods: {
+    handleClick(item) {
+      console.log(item);
+    },
+    //
+    add() {
+      this.dialogVisible = true;
+    },
+
+        //弹框点击确认
+    updateList(item){
+      console.log(item.item);
+        let postCont = {
+          id:item.item[0].inputContent,
+          name:item.item[1].inputContent,
+          meta:`{"title":"${item.item[3].inputContent}"}`,
+          sortMenu:item.item[4].inputContent
+        }
+        console.log(postCont);
+        updateMenuApi(postCont).then(res => {
+          console.log(res);
+          if(res.code == 200){
+            
+          }
+        })
+    },
+    //关闭弹框
+    closePopup() {
+      this.dialogVisible = false;
     },
   },
-  methods:{
-  }
 };
 </script>
 
-<style lang="less" scoped>
-.studentUser {
-  .welcome {
-    color: #333;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    margin-left: 20px;
-    .welcome-top {
-      font-size: 28px;
-    }
-  }
-  .content {
-    border-bottom: 1px solid #ddd;
-    .content-data {
-      .content-data-item {
-        border: 1px solid red;
-        margin: 20px 20px;
-        height: 110px;
-        border-top-left-radius: 40px;
-        border-bottom-right-radius: 40px;
-        overflow: hidden;
-        background: red;
-      }
-    }
-    .card {
-      height: 350px;
-      margin: 0 20px;
-      // border: 1px solid red;
-      .card-item {
-        width: 48%;
-        border: 1px solid whitesmoke;
-      }
-    }
-    .credit-card {
-      height: 160px;
-      .credit-card-item {
-        border: 1px solid whitesmoke;
-        margin: 20px;
-        border-radius: 20px;
-      }
-    }
-  }
-}
+<style>
 </style>
