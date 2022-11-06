@@ -2,7 +2,7 @@
  * @Author: 汪鑫
  * @Date: 2022-02-10 14:52:58
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-10-13 12:07:17
+ * @LastEditTime: 2022-11-06 11:24:56
  * @LastEditors: wyy
  * @Description: 
  * @FilePath: /student_sys_vue/src/App.vue
@@ -16,14 +16,14 @@
 <script>
 export default {
   beforeCreate() {
-    if (localStorage.getItem("userInfo")) {
-      this.$store.dispatch('doGetMenuList').then(res => {
-        console.log(res);
-        if (res && res != "[]") {
-          this.$router.push("/");
-        }
-      })
-    }
+    // if (localStorage.getItem("userInfo")) {
+    //   this.$store.dispatch('doGetMenuList').then(res => {
+    //     console.log(res);
+    //     if (res && res != "[]") {
+    //       this.$router.push("/");
+    //     }
+    //   })
+    // }
   },
 };
 </script>

@@ -2,7 +2,7 @@
  * @Author: 汪鑫
  * @Date: 2022-02-10 14:52:58
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-10-13 12:05:58
+ * @LastEditTime: 2022-11-02 10:51:25
  * @LastEditors: wyy
  * @Description: 
  * @FilePath: /student_sys_vue/src/router/index.js
@@ -55,7 +55,7 @@ const routes = [
   export const asyncRouter = [
     {
       path: '/',
-      redirect: '/studentUser'
+      redirect: '/Dashboard'
     },
     {
       path: '/',

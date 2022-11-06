@@ -2,10 +2,10 @@
  * @Author: wyy
  * @Date: 2022-09-05 22:24:45
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-11-03 14:09:50
+ * @LastEditTime: 2022-11-02 17:34:23
  * @LastEditors: wyy
  * @Description: 课程
- * @FilePath: /student_sys_vue/src/page/menu/studentMessage.vue
+ * @FilePath: /student_sys_vue/src/page/menu/class.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <template>
@@ -66,8 +66,11 @@
 import { Table, TableColumn, Button, Pagination } from "element-ui";
 import popupDialog from "../../common/popupDialog";
 import {
- getUserPageApi
-} from "../../request/api/user";
+  getClassPageApi,
+  addClassApi,
+  editClassApi,
+  delClassApi,
+} from "../../request/api/class";
 export default {
   components: {
     elTable: Table,
@@ -94,7 +97,7 @@ export default {
   methods: {
     //获取列表
     getListPage() {
-      getUserPageApi({ page: this.currentPage, pageSize: this.pageSize }).then(
+      getClassPageApi({ page: this.currentPage, pageSize: this.pageSize }).then(
         (res) => {
           this.totalPage = res.total;
           this.tableData = res.records;

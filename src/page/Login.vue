@@ -2,7 +2,7 @@
  * @Author: 汪鑫
  * @Date: 2022-02-13 23:08:20
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-09-30 14:57:52
+ * @LastEditTime: 2022-11-06 11:12:55
  * @LastEditors: wyy
  * @Description: 
  * @FilePath: /student_sys_vue/src/page/Login.vue
@@ -47,7 +47,6 @@
 <script>
 import { Form, FormItem, Button, Input } from "element-ui";
 import { getLoginApi } from "../request/api/login.js";
-import { asyncRouter } from "../router/index";
 export default {
   components: {
     elForm: Form,
@@ -73,7 +72,6 @@ export default {
         if (valid) {
           getLoginApi(this.param).then((res) => {
             if (res.code == 200) {
-              console.log(res);
               localStorage.setItem("token", res.data.token);
               localStorage.setItem("userInfo", JSON.stringify(res.data));
               this.$message.success("登录成功");
@@ -100,20 +98,9 @@ export default {
         if (res && res != "[]") {
           this.$router.push("/");
         }
+      }).catch(err => {
+        console.log(err);
       })
-      // getMenuApi().then((res) => {
-      //   console.log(res);
-      //   if (res && res != "[]") {
-      //     res.map((item, index, arr) => {
-      //       item.meta = JSON.parse(item.meta);
-      //       item.component = () => import(`./menu/${item.path}.vue`);
-      //     });
-      //      asyncRouter[1].children = res;
-      //      this.$router.addRoutes(asyncRouter);
-      //      this.$store.commit("changeMenu", res);
-      //      this.$router.push("/");
-      //   }
-      // });
     },
   },
 };

@@ -2,10 +2,10 @@
  * @Author: wyy
  * @Date: 2022-09-05 22:23:27
  * @Annotate: 输入这页的内容
- * @LastEditTime: 2022-09-12 21:26:34
+ * @LastEditTime: 2022-11-05 23:32:29
  * @LastEditors: wyy
  * @Description: 
- * @FilePath: /student_sys_vue/src/page/menu/studentUser.vue
+ * @FilePath: /student_sys_vue/src/page/menu/Dashboard.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <template>
@@ -58,15 +58,13 @@
       <div class="credit-card flexBox justify-content-between">
         <div
           class="credit-card-item flex1"
-          v-for="(item, index) in 4"
+          v-for="(item, index) in footContent"
           :key="index"
+          :style="{backgroundImage:'url(' + item +')'}"
         >
-          wode
+          
         </div>
       </div>
-    </div>
-    <div class="footer">
-      XXXX
     </div>
   </div>
 </template>
@@ -108,6 +106,12 @@ export default {
         {className:"iconfont icon-jiaowu",name:"教务人员数量",num:"123",backgroundImg:require("../../img/index2.jpg")},
         {className:"iconfont icon-laoshi",name:"老师数量",num:"123",backgroundImg:require("../../img/index3.jpg")},
         {className:"iconfont icon-chengji",name:"学生平均成绩",num:"123",backgroundImg:require("../../img/index4.jpg")},
+      ],
+      footContent:[
+        require("../../img/foot1.webp"),
+        require("../../img/foot2.webp"),
+        require("../../img/foot3.webp"),
+        require("../../img/foot4.webp"),
       ]
     };
   },
@@ -166,6 +170,8 @@ export default {
         border: 1px solid whitesmoke;
         margin: 20px;
         border-radius: 20px;
+        background-repeat: no-repeat;
+        background-size: 100%;
       }
     }
   }
